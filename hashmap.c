@@ -57,7 +57,7 @@ int get_valid_location(HashMap* map, char* key)
     }
     for(loc = 0; loc < start_loc; loc++)
     {
-      if(map->buckets[loc] == NULL || map->buckets[loc]->key ==  || map->buckets[loc]->key == key)
+      if(map->buckets[loc] == NULL || map->buckets[loc]->key == key)
         return loc;
     }
   }
