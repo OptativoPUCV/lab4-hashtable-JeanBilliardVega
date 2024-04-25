@@ -50,7 +50,7 @@ void insertMap(HashMap * map, char * key, void * value) {
     loc = (loc + 1) % map->capacity;
   }
   map->buckets[loc] = createPair(key, value);
-  size += 1;
+  map->size += 1;
 }
 
 void enlarge(HashMap * map) {
