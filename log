@@ -2,3 +2,29 @@ Thu 25 Apr 2024 07:26:45 PM UTC:
  tests:  0|6
 total_score: 0/70
 2351cf2
+Thu 25 Apr 2024 09:14:59 PM UTC: 
+ hashmap.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+In file included from test.c:4:
+hashmap.c: In function ‘createMap’:
+hashmap.c:55:7: error: array subscript ‘HashMap {aka struct HashMap}[0]’ is partly outside array bounds of ‘unsigned char[8]’ [-Werror=array-bounds]
+   55 |   mapa->capacity = capacity;
+      |       ^~
+hashmap.c:54:30: note: referencing an object of size 8 allocated by ‘malloc’
+   54 |   HashMap* mapa = (HashMap*) malloc(sizeof(HashMap*));
+      |                              ^~~~~~~~~~~~~~~~~~~~~~~~
+hashmap.c:56:7: error: array subscript ‘HashMap {aka struct HashMap}[0]’ is partly outside array bounds of ‘unsigned char[8]’ [-Werror=array-bounds]
+   56 |   mapa->buckets = (Pair**) calloc(mapa->capacity,sizeof(Pair*));
+      |       ^~
+hashmap.c:54:30: note: referencing an object of size 8 allocated by ‘malloc’
+   54 |   HashMap* mapa = (HashMap*) malloc(sizeof(HashMap*));
+      |                              ^~~~~~~~~~~~~~~~~~~~~~~~
+hashmap.c:57:7: error: array subscript ‘HashMap {aka struct HashMap}[0]’ is partly outside array bounds of ‘unsigned char[8]’ [-Werror=array-bounds]
+   57 |   mapa->size = 0;
+      |       ^~
+hashmap.c:54:30: note: referencing an object of size 8 allocated by ‘malloc’
+   54 |   HashMap* mapa = (HashMap*) malloc(sizeof(HashMap*));
+      |                              ^~~~~~~~~~~~~~~~~~~~~~~~
+cc1: all warnings being treated as errors
+Compilation failed
+c2c0ef0
