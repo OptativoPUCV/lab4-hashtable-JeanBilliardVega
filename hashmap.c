@@ -40,47 +40,19 @@ int is_equal(void* key1, void* key2){
 
 void insertMap(HashMap * map, char * key, void * value) {
   int loc = hash(key, map->capacity);
-  if(map->buckets[loc] == NULL)
+  while(map->buckets[loc] != NULL && map->buckets[loc]->key != NULL)
   {
-    map->buckets[loc] = createPair(key, value);
-    map->buckets[loc]->value = value;
-    map->buckets[loc]->key = key;
-    map->size += 1; 
-  }
-  else if(is_equal(map->buckets[loc]->key, key))
-  {
-    map->buckets[loc]->value = value;
-  }
-  else if(map->buckets[loc] != NULL)
-  {
-    for(int i = loc; i < map->capacity; i++)
+    map->current = loc;
+    if(is_equal(map->buckets[loc]->key, key))
     {
-      if(map->buckets[i] == NULL)
-      {
-        map->buckets[i] = createPair(key, value);
-        map->buckets[i]->value = value;
-        map->buckets[i]->key = key;
-        map->size += 1;
-      }
-      else if(is_equal(map->buckets[i]->key, key))
-      {
-        map->buckets[i]->value = value;
-      }
+      map->buckets[loc]->value = value;
     }
-    for(int i = 0; i < loc; i++)
+    else if(map->buckets[loc]->key == NULL)
     {
-      if(map->buckets[i] == NULL)
-      {
-        map->buckets[i] = createPair(key, value);
-        map->buckets[i]->value = value;
-        map->buckets[i]->key = key;
-        map->size += 1;
-      }
-      else if(is_equal(map->buckets[i]->key, key))
-      {
-        map->buckets[i]->value = value;
-      }
+      map->buckets[loc]->key = key;
+      map->buckets[loc]->value = value;
     }
+    loc = (loc + 1) % map->capacity;
   }
 }
 
@@ -142,7 +114,7 @@ Pair * searchMap(HashMap * map,  char * key) {
 
 Pair * firstMap(HashMap * map)
 {
-  for(int i = 0; i < map->capacity; i = (i + 1) % map->capacity)
+  for(int i = 0; i < map->capacity; i++)
   {
     if(map->buckets[i]->key != NULL && map->buckets[i] != NULL)
     {
