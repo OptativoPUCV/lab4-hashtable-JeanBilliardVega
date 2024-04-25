@@ -46,3 +46,13 @@ Thu 25 Apr 2024 09:17:33 PM UTC:
  tests:  1|5
 total_score: 10/70
 efde6e5
+Thu 25 Apr 2024 09:25:05 PM UTC: 
+ hashmap.c | 58 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 56 insertions(+), 2 deletions(-)
+In file included from test.c:4:
+hashmap.c: In function ‘get_valid_location’:
+hashmap.c:60:66: error: expected expression before ‘||’ token
+   60 |       if(map->buckets[loc] == NULL || map->buckets[loc]->key ==  || map->buckets[loc]->key == key)
+      |                                                                  ^~
+Compilation failed
+1f21da8
