@@ -47,6 +47,10 @@ void insertMap(HashMap * map, char * key, void * value) {
     map->buckets[loc]->key = key;
     map->size += 1; 
   }
+  else if(is_equal(map->buckets[loc]->key, key))
+  {
+    map->buckets[loc]->value = value;
+  }
   else if(map->buckets[loc] != NULL)
   {
     for(int i = loc; i < map->capacity; i++)
@@ -58,6 +62,10 @@ void insertMap(HashMap * map, char * key, void * value) {
         map->buckets[i]->key = key;
         map->size += 1;
       }
+      else if(is_equal(map->buckets[i]->key, key))
+      {
+        map->buckets[i]->value = value;
+      }
     }
     for(int i = 0; i < loc; i++)
     {
@@ -68,13 +76,11 @@ void insertMap(HashMap * map, char * key, void * value) {
         map->buckets[i]->key = key;
         map->size += 1;
       }
+      else if(is_equal(map->buckets[i]->key, key))
+      {
+        map->buckets[i]->value = value;
+      }
     }
-  }
-  
-  float load_factor = (float)map->size / map->capacity;
-  if (load_factor > 0.7)
-  {
-    enlarge(map);
   }
 }
 
