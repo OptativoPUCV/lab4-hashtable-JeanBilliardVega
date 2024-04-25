@@ -38,50 +38,41 @@ int is_equal(void* key1, void* key2){
     return 0;
 }
 
-int get_valid_location(HashMap* map, char* key)
-{
-  int start_loc = hash(key, map->capacity);
-  if(map->buckets[start_loc] == NULL)
+void insertMap(HashMap * map, char * key, void * value) {
+  int loc = hash(key, map->capacity);
+  if(map->buckets[loc] == NULL)
   {
-    return start_loc;
+    map->buckets[loc] = createPair(key, value);
+    map->buckets[loc]->value = value;
+    map->buckets[loc]->key = key;
   }
-  else
+  else if(map->buckets[loc] != NULL)
   {
-    int loc;
-    for(loc = start_loc; loc < map->capacity; loc++)
+    for(int i = loc; i < map->capacity; i++)
     {
-      if(map->buckets[loc] == NULL)
+      if(map->buckets[i] == NULL)
       {
-        return loc;
+        map->buckets[i] = createPair(key, value);
+        map->buckets[i]->value = value;
+        map->buckets[i]->key = key;
       }
     }
-    for(loc = 0; loc < start_loc; loc++)
+    for(int i = 0; i < loc; i++)
     {
-      if(map->buckets[loc] == NULL)
-        return loc;
+      if(map->buckets[i] == NULL)
+      {
+        map->buckets[i] = createPair(key, value);
+        map->buckets[i]->value = value;
+        map->buckets[i]->key = key;
+      }
     }
   }
-  return -1;
-}
-
-void insertMap(HashMap * map, char * key, void * value) {
-  int loc = get_valid_location(map, key);
-  if(loc == -1)
-  {
-    enlarge(map);
-    insertMap(map, key, value);
-  }
+  
   float load_factor = (float)map->size / map->capacity;
   if (load_factor > 0.7)
   {
     enlarge(map);
-    insertMap(map, key, value);
   }
-  else
-  {
-    map->buckets[loc]->value = value;
-    map->buckets[loc]->key = key;
-  }  
 }
 
 void enlarge(HashMap * map) {
