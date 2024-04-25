@@ -118,8 +118,31 @@ HashMap * createMap(long capacity) {
 }
 
 void eraseMap(HashMap * map,  char * key) {    
-
-
+  int loc = hash(key, map->capacity);
+  if(is_equal(map->buckets[loc]->key, key))
+  {
+    map->buckets[loc]->key = NULL;
+    return;
+  }
+  else if(!is_equal(map->buckets[loc]->key, key))
+  {
+    for(int i = loc; i < map->capacity; i++)
+    {
+      if(is_equal(map->buckets[i]->key, key))
+      {
+        map->buckets[i]->key = NULL;
+        return;
+      }
+    }
+    for(int i = 0; i < loc; i++)
+    {
+      if(is_equal(map->buckets[i]->key, key))
+      {
+        map->buckets[i]->key = NULL;
+        return;
+      }
+    }
+  }
 }
 
 Pair * searchMap(HashMap * map,  char * key) {   
