@@ -140,8 +140,9 @@ Pair * searchMap(HashMap * map,  char * key) {
   return NULL;
 }
 
-Pair * firstMap(HashMap * map) {
-  for(int i = 0; i < map->capacity; i++)
+Pair * firstMap(HashMap * map)
+{
+  for(int i = 0; i < map->capacity; i = (i + 1) % map->capacity)
   {
     if(map->buckets[i]->key != NULL && map->buckets[i] != NULL)
     {
