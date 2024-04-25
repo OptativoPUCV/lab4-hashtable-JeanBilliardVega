@@ -47,13 +47,10 @@ void insertMap(HashMap * map, char * key, void * value) {
     {
       map->buckets[loc]->value = value;
     }
-    else if(map->buckets[loc]->key == NULL)
-    {
-      map->buckets[loc]->key = key;
-      map->buckets[loc]->value = value;
-    }
     loc = (loc + 1) % map->capacity;
   }
+  map->buckets[loc] = createPair(key, value);
+  size += 1;
 }
 
 void enlarge(HashMap * map) {
