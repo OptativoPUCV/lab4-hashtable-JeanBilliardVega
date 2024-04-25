@@ -41,7 +41,7 @@ int is_equal(void* key1, void* key2){
 int get_valid_location(HashMap* map, char* key)
 {
   int start_loc = hash(key, map->capacity);
-  if(map->buckets[start_loc]->key == key || map->buckets[start_loc] == NULL)
+  if(map->buckets[start_loc] == NULL)
   {
     return start_loc;
   }
@@ -50,14 +50,14 @@ int get_valid_location(HashMap* map, char* key)
     int loc;
     for(loc = start_loc; loc < map->capacity; loc++)
     {
-      if(map->buckets[loc] == NULL || map->buckets[loc]->key == key)
+      if(map->buckets[loc] == NULL)
       {
         return loc;
       }
     }
     for(loc = 0; loc < start_loc; loc++)
     {
-      if(map->buckets[loc] == NULL || map->buckets[loc]->key == key)
+      if(map->buckets[loc] == NULL)
         return loc;
     }
   }
