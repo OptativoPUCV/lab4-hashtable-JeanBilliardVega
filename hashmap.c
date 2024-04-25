@@ -45,6 +45,7 @@ void insertMap(HashMap * map, char * key, void * value) {
     map->buckets[loc] = createPair(key, value);
     map->buckets[loc]->value = value;
     map->buckets[loc]->key = key;
+    map->size += 1; 
   }
   else if(map->buckets[loc] != NULL)
   {
@@ -55,6 +56,7 @@ void insertMap(HashMap * map, char * key, void * value) {
         map->buckets[i] = createPair(key, value);
         map->buckets[i]->value = value;
         map->buckets[i]->key = key;
+        map->size += 1;
       }
     }
     for(int i = 0; i < loc; i++)
@@ -64,6 +66,7 @@ void insertMap(HashMap * map, char * key, void * value) {
         map->buckets[i] = createPair(key, value);
         map->buckets[i]->value = value;
         map->buckets[i]->key = key;
+        map->size += 1;
       }
     }
   }
