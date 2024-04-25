@@ -118,61 +118,26 @@ HashMap * createMap(long capacity) {
 }
 
 void eraseMap(HashMap * map,  char * key) {    
-  int loc = hash(key, map->capacity);
-  if(is_equal(map->buckets[loc]->key, key))
+  Pair* datoABorrar = searchMap(map, key);
+  if(datoABorrar != NULL)
   {
-    map->buckets[loc]->key = NULL;
     map->size -= 1;
-    return;
-  }
-  else if(!is_equal(map->buckets[loc]->key, key))
-  {
-    for(int i = loc; i < map->capacity; i++)
-    {
-      if(is_equal(map->buckets[i]->key, key))
-      {
-        map->buckets[i]->key = NULL;
-        map->size -= 1;
-        return;
-      }
-    }
-    for(int i = 0; i < loc; i++)
-    {
-      if(is_equal(map->buckets[i]->key, key))
-      {
-        map->buckets[i]->key = NULL;
-        map->size -= 1;
-        return;
-      }
-    }
-  }
-  else if(map->buckets[loc]->key == NULL)
-  {
-    for(int i = loc; i < map->capacity; i++)
-    {
-      if(is_equal(map->buckets[i]->key, key))
-      {
-        map->buckets[i]->key = NULL;
-        map->size -= 1;
-        return;
-      }
-    }
-    for(int i = 0; i < loc; i++)
-    {
-      if(is_equal(map->buckets[i]->key, key))
-      {
-        map->buckets[i]->key = NULL;
-        map->size -= 1;
-        return;
-      }
-    }
+    datoABorrar->key = NULL;
   }
 }
 
 Pair * searchMap(HashMap * map,  char * key) {   
-
-
-    return NULL;
+  int loc = hash(key, map->capacity);
+  while(map->buckets[loc] != NULL && map->buckets[loc]->key != NULL)
+  {
+    map->current = loc;
+    if(is_equal(map->buckets[loc]->key, key))
+    {
+      return map->buckets[loc];
+    }
+    loc = (loc + 1) % map->capacity;
+  }
+  return NULL;
 }
 
 Pair * firstMap(HashMap * map) {
