@@ -127,7 +127,7 @@ Pair * nextMap(HashMap * map) {
   else
   {
     long loc = map->current;
-    return map->buckets[(loc + 1)];
+    return map->buckets[(loc + 1)]->value;
   }
   return NULL;
 }
